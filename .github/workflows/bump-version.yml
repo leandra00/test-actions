@@ -9,10 +9,11 @@ jobs:
     name: get version
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v3
       - name: Read package.json
         id: package
-        uses: actions/checkout@v3
+        uses: traversals-analytics-and-intelligence/file-reader-action@master
         with:
           path: ./package.json
       - name: Echo package.json
-        run: echo "${{ steps.package.outputs.content }}"
+        run: echo "${{ steps.template.outputs.content }}"
