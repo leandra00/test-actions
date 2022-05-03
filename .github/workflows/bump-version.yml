@@ -17,3 +17,5 @@ jobs:
           file: ./package.json
       - name: Echo package.json
         run: echo "${{ fromJSON(steps.package.outputs.content).version }}"
+      - name: Release Drafter
+        uses: release-drafter/release-drafter@v5.19.0
