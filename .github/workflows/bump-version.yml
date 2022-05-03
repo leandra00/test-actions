@@ -16,4 +16,4 @@ jobs:
         with:
           file: ./package.json
       - name: Echo package.json
-        run: echo "${{ fromJSON(steps.package.outputs.content.version) }}"
+        run: echo "${{ fromJSON(steps.package.outputs.content).version }}"
