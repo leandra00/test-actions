@@ -1,0 +1,18 @@
+name: bump-version
+on:
+  pull_request:
+    types: [opened, reopened]
+
+
+jobs:
+  get-version:
+    name: get version
+    runs-on: self-hosted
+    steps:
+      - name: Read package.json
+        id: package
+        uses: actions/checkout@v3
+        with:
+          path: ./src/client/package.json
+      - name: Echo package.json
+        run: echo "${{ steps.package.outputs.content }}"
