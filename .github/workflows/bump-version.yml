@@ -14,6 +14,6 @@ jobs:
         id: package
         uses: traversals-analytics-and-intelligence/file-reader-action@master
         with:
-          path: ./package.json
+          file: ./package.json
       - name: Echo package.json
         run: echo "${{ steps.template.outputs.content }}"
