@@ -16,4 +16,4 @@ jobs:
         with:
           file: ./package.json
       - name: Echo package.json
-        run: echo "${{ steps.template.outputs.content }}"
+        run: echo "${{ steps.package.outputs.content }}"
