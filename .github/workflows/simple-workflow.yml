@@ -1,26 +1,17 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+jobs:  
+  hello-world:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -34,3 +25,26 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: trigger-from-other-repo
+        id: trigger-from-other-repo
+        if: ${{ steps.changesets.outputs.published == 'true' }}
+        uses: actions/github-script@v6
+        with:
+          debug: ${{ secrets.ACTIONS_RUNNER_DEBUG }}
+          github-token: ${{ secrets.GITHUB_PAT }}
+          script: |
+            try {
+              const result = await github.rest.actions.createWorkflowDispatch({
+                owner: 'leandra00',
+                repo: 'test-actions2',
+                workflow_id: 'bundle.yml',
+                ref: 'main',
+                inputs: {
+                  tags: ${{ steps.get-tags.outputs.tags }}
+                },
+              })
+              console.log(result);
+            } catch(error) {
+              console.error(error);
+              core.setFailed(error);
+            }    
