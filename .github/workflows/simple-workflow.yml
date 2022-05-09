@@ -33,11 +33,11 @@ jobs:
             -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" \
             -s -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/leandra00/test-actions2/commits \
-            | grep -E -m 1 sha \
+            | grep -m 1 sha \
             | awk 'BEGIN { FS = "\""; } { print $4 }')
             
             latest_release=$(curl \
-              -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}"
+              -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" \
               -s -H "Accept: application/vnd.github.v3+json" \
               https://api.github.com/repos/leandra00/test-actions/releases \
              | grep tag_name \
