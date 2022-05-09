@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-            dpendencies_last_commit=$(curl 
+            dpendencies_last_commit=$(curl \
             -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" \
             -s -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/leandra00/test-actions2/commits \
