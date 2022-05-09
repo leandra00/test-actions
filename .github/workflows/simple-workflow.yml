@@ -50,6 +50,14 @@ jobs:
             echo $dpendencies_last_commit
             echo $sha
             echo $tag
+            
+            if [ $dependencies_last_commit != $sha ] then
+              exit 1
+            fi
+  build-dependency:
+    needs: trigger-from-other-repo
+    runs-on: ubuntu-latest
+   
 
 #      - uses: actions/github-script@v6
 #        with:
